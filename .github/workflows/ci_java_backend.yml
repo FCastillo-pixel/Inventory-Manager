@@ -14,7 +14,7 @@ on:
       - 'backend/**'
 
 env:
-  java_version: 17
+  java_version: 21
   java_distribution: temurin
 defaults:
   run:
@@ -37,7 +37,7 @@ jobs:
                 cache: maven
 
             - name: Build with Maven
-              run: mvn -B package --file pom.xml
+              run: mvn clean -B package
     
     test-coverage:
           needs:
@@ -56,7 +56,7 @@ jobs:
 
             - name: Generate Coverage Report
               run: |
-                mvn -B package --file pom.xml
+                mvn clean -B package
 
             - name: Add coverage to PR
               id: jacoco
