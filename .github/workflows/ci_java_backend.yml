@@ -1,0 +1,69 @@
+# worflow for building the back end
+
+name: "Java backend CI" # the name of the job when ran
+
+# events that will trigger this workflow to run
+on: 
+  push:
+    branches: [ "main"]
+    paths: # only trigger if changes in this paths
+      - 'backend/**'
+  pull_request:
+    branches: [ "main"]
+    paths:
+      - 'backend/**'
+
+env:
+  java_version: 17
+  java_distribution: temurin
+defaults:
+  run:
+      working-directory: ./backend
+# run in parallel by default
+# can be multiple jobs
+# cannot share machines between jobs so either steps or need to check out in each job
+jobs:
+    build: # first job
+        runs-on: ubuntu-latest # the "worker node" where it's going to be build
+        steps:
+            - name: Check out code
+              uses: actions/checkout@v4.1.7 # action
+
+            - name: Set up jdk ${{ env.java_version }}
+              uses: actions/setup-java@v4
+              with:
+                java-version: ${{ env.java_version }}
+                distribution: ${{ env.java_distribution }}
+                cache: maven
+
+            - name: Build with Maven
+              run: mvn --batch-mode --update-snapshots verify
+    
+    test-coverage:
+          needs:
+            - build
+          runs-on: ubuntu-latest # the "worker node" where it's going to be build
+          steps:
+            - name: Check out code
+              uses: actions/checkout@v4.1.7 # action
+
+            - name: Set up jdk ${{ env.java_version }}
+              uses: actions/setup-java@v4
+              with:
+                java-version: ${{ env.java_version }}
+                distribution: ${{ env.java_distribution }}
+                cache: maven
+
+            - name: Generate Coverage Report
+              run: |
+                mvn -B package --file pom.xml
+
+            - name: Add coverage to PR
+              id: jacoco
+              uses: madrapps/jacoco-report@v1.7.2
+              with:
+                paths: ${{ github.workspace }}/target/site/jacoco/jacoco.xml
+                token: ${{ secrets.GITHUB_TOKEN }}
+                min-coverage-overall: 80
+                min-coverage-changed-files: 80
+                title: Code Coverage
