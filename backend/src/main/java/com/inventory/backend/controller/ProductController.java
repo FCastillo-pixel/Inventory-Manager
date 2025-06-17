@@ -59,7 +59,7 @@ public class ProductController {
     }
 
     // DELETE /products/{id}
-    @DelteMapping("/{id}")
+    @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable UUID id) {
         service.deleteProduct(id);
     }
