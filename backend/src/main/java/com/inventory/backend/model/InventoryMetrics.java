@@ -23,7 +23,7 @@ public class InventoryMetrics {
         int totalStock = products.stream().mapToInt(Product::getQuantityInStock).sum();
 
         double totalValue = products.stream()
-                .maptoDouble(Product::getTotalValue)
+                .mapToDouble(Product::getTotalValue)
                 .sum();
 
         List<Product> inStock = products.stream()

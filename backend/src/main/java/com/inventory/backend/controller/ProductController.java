@@ -49,7 +49,7 @@ public class ProductController {
     // POST /products
     @PostMapping
     public Product createProduct(@RequestBody @Valid ProductDTO dto) {
-        return service.createProduct(id, dto);
+        return service.createProduct(dto);
     }
 
     // PUT /products/{id}
