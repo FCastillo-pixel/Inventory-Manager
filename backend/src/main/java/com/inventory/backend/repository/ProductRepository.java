@@ -15,7 +15,7 @@ public class ProductRepository {
     }
 
     public Optional<Product> findById(UUID id) {
-        return Optional.ofNullable(products)
+        return Optional.ofNullable(products);
     }
 
     public Product save(Product product) {
@@ -38,7 +38,7 @@ public class ProductRepository {
     public List<Product> findByNameOrCategoryOrAvailability(
             Optional<String> nameFilter,
             Optional<Set<String>> categoryFilter,
-            Optional<Boolean> availability,
+            Optional<Boolean> availability
     ) {
         return products.values().stream()
                 .filter(p -> nameFilter.map(name -> p.getName().toLowerCase().contains(name.toLoweCase())).orElse(true))

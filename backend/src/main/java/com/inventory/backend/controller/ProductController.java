@@ -30,7 +30,7 @@ public class ProductController {
             @RequestParam(defaultValue = "true") boolean asc,
             @RequestParam(defaultValue = "true") boolean asc2,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "10") int size
     ){
         Set<String> categorySet = category.map(HashSet::new).orElse(null);
         return service.getFilteredAndSortedProducts(
