@@ -42,7 +42,7 @@ public class ProductRepository {
     ) {
         return products.values().stream()
                 .filter(p -> nameFilter.map(name -> p.getName().toLowerCase().contains(name.toLowerCase())).orElse(true))
-                .filter(p -> categoryFilter.map(categories -> categories.contains(p.category())).orElse(true))
+                .filter(p -> categoryFilter.map(categories -> categories.contains(p.getCategory())).orElse(true))
                 .filter(p -> availability.map(avail -> avail == p.isInStock()).orElse(true))
                 .collect(Collectors.toList());
     }
