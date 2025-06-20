@@ -81,4 +81,9 @@ public class ProductController {
     public InventoryMetrics getMetrics() {
         return service.getMetrics();
     }
+
+    @GetMapping("/categories")
+    public Set<String> getCategories(){
+        return service.getAllCategories();
+    }
 }

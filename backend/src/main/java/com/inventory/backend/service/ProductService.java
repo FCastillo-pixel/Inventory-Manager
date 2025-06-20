@@ -119,4 +119,11 @@ public class ProductService {
         List<Product> all = repository.findAll();
         return InventoryMetrics.fromProductList(all);
     }
+
+    public Set<String> getAllCategories() {
+        return repository.findAll().stream()
+                .map(Product::getCategory)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toCollection(TreeSet::new));
+    }
 }
