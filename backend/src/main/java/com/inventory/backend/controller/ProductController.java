@@ -1,6 +1,7 @@
 package com.inventory.backend.controller;
 
 import com.inventory.backend.dto.ProductDTO;
+import com.inventory.backend.dto.ProductPage;
 import com.inventory.backend.model.InventoryMetrics;
 import com.inventory.backend.model.Product;
 import com.inventory.backend.service.ProductService;
@@ -21,7 +22,7 @@ public class ProductController {
 
     // GET /products
     @GetMapping
-    public List<Product> getProducts(
+    public ProductPage getProducts(
             @RequestParam Optional<String> name,
             @RequestParam Optional<List<String>> category,
             @RequestParam Optional<Boolean> availability,
@@ -33,7 +34,7 @@ public class ProductController {
             @RequestParam(defaultValue = "10") int size
     ){
         Set<String> categorySet = category.map(HashSet::new).orElse(null);
-        return service.getFilteredAndSortedProducts(
+        return service.getFilteredProductsPage(
                 name,
                 Optional.ofNullable(categorySet),
                 availability,

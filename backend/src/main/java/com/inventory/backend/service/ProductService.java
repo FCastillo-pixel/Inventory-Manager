@@ -1,6 +1,7 @@
 package com.inventory.backend.service;
 
 import com.inventory.backend.dto.ProductDTO;
+import com.inventory.backend.dto.ProductPage;
 import com.inventory.backend.model.Product;
 import com.inventory.backend.model.InventoryMetrics;
 import com.inventory.backend.repository.ProductRepository;
@@ -41,6 +42,35 @@ public class ProductService {
                 .skip((long) page * size)
                 .limit(size)
                 .collect(Collectors.toList());
+    }
+    public ProductPage getFilteredProductsPage(
+            Optional<String> nameFilter,
+            Optional<Set<String>> categoryFilter,
+            Optional<Boolean> availability,
+            Optional<String> sortBy,
+            Optional<String> sortBy2,
+            boolean ascending,
+            boolean ascending2,
+            int page,
+            int size
+    ){
+        List<Product> filtered = repository.findByNameOrCategoryOrAvailability(nameFilter, categoryFilter,availability);
+
+        Comparator<Product> comparator = getComparator(sortBy.orElse(null), ascending);
+        if(sortBy2.isPresent()) {
+            comparator = comparator.thenComparing(getComparator(sortBy2.get(), ascending2));
+        }
+
+        long total = filtered.size();
+
+        List<Product> pageItems = filtered.stream()
+                .sorted(comparator)
+                .skip((long) page * size)
+                .limit(size)
+                .toList();
+
+        return new ProductPage(pageItems, total);
+
     }
 
     private Comparator<Product> getComparator(String sortField, boolean ascending) {
