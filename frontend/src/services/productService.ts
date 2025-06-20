@@ -32,3 +32,8 @@ export const getMetrics = async (): Promise<InventoryMetrics> => {
     const response = await api.get("/products/metrics");
     return response.data;
 };
+
+export const getCategories = async (): Promise<string[]> => {
+    const res = await api.get("/products/categories")
+    return res.data;
+}
