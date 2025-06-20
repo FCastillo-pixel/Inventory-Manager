@@ -9,6 +9,7 @@ const ProductListPage: React.FC = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [metrics, setMetrics] = useState<InventoryMetrics | null>(null);
     const [loading, setLoading] = useState(false);
+    const [total, setTotal] = useState(0);
 
     const [filters, setFilters] = useState({
         name: "",
@@ -26,7 +27,8 @@ const ProductListPage: React.FC = () => {
         setLoading(true);
         try {
             const data = await getProducts(filters);
-            setProducts(data);
+            setProducts(data.items);
+            setTotal(data.total);
             const m = await getMetrics();
             setMetrics(m);
         }catch (err) {
@@ -60,7 +62,7 @@ const ProductListPage: React.FC = () => {
                         filters={filters}
                         setFilters={setFilters}
                     />
-                    <PaginationControls filters={filters} setFilters={setFilters}/>
+                    <PaginationControls filters={filters} setFilters={setFilters} total={total}/>
                 </>
             )}
 

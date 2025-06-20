@@ -19,7 +19,7 @@ const InventoryPage = () => {
         try {
             const data = await getProducts({page, size: 10});
             const m = await getMetrics();
-            setProducts(data);
+            setProducts(data.items);
             setMetrics(m);
         }catch (err) {
             console.log("Error loading products", err);
