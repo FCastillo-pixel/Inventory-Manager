@@ -12,9 +12,13 @@
     "@types/node": "^16.18.126",
     "@types/react": "^19.1.7",
     "@types/react-dom": "^19.1.6",
+<<<<<<< HEAD
     "autoprefixer": "^10.4.21",
     "axios": "^1.10.0",
     "postcss": "^8.5.6",
+=======
+    "axios": "^1.10.0",
+>>>>>>> fullstack
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-scripts": "5.0.1",
@@ -61,6 +65,12 @@
     ]
   },
   "devDependencies": {
+<<<<<<< HEAD
     "@types/uuid": "^10.0.0"
+=======
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.17"
+>>>>>>> fullstack
   }
 }
