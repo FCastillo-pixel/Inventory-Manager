@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useCallback} from "react";
 import { getCategories } from "../services/productService";
 
 interface Props {
@@ -20,15 +20,15 @@ const ProductFilters: React.FC<Props> = ({filters, setFilters}) => {
         });
     }, []);
 
-    const handleApply = () => {
-        setFilters({
-            ...filters,
+    const handleApply = useCallback( () => {
+            setFilters((prevFilters: any) =>({
+            ...prevFilters,
             name,
             category,
             availability: availability === "" ? "" : availability === "in",
             page: 0,
-        });
-    };
+        }));
+    }, [setFilters, name, category, availability]);
 
     const toggleCategory = (value: string) => {
         setCategory(prev =>
@@ -40,7 +40,7 @@ const ProductFilters: React.FC<Props> = ({filters, setFilters}) => {
 
     useEffect(() => {
         handleApply();
-    }, [name, category, availability]);
+    }, [handleApply]);
 
     return (
         <div className="mb-4 p-4 bg-gray-100 rounded space-y-3">

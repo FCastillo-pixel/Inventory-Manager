@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import { getProducts, getMetrics } from "../services/productService";
 import { Product, InventoryMetrics } from "../types/Product";
 import ProductTable from "../components/ProductTable";
@@ -26,7 +26,7 @@ const ProductListPage: React.FC = () => {
         size: 10,
     });
 
-    const fetchData = async () => {
+    const fetchData = useCallback( async () => {
         setLoading(true);
         try {
             const data = await getProducts(filters);
@@ -37,7 +37,7 @@ const ProductListPage: React.FC = () => {
         }catch (err) {
             console.log("Error loading products", err);
         } finally {setLoading(false);}
-    };
+    }, [filters]);
     
     const handleEdit = (product: Product) => {
         setEditingProducts(product);
@@ -46,7 +46,7 @@ const ProductListPage: React.FC = () => {
 
     useEffect(() => {
         fetchData();
-    }, [filters]);
+    }, [fetchData]);
 
     return(
         <div className="p-6">
