@@ -6,9 +6,10 @@ interface Props{
     products: Product[];
     filters: any;
     setFilters: (f: any) => void;
+    onEdit: (product: Product) => void;
 }
 
-const ProductTable: React.FC<Props> = ({products, filters, setFilters}) => {
+const ProductTable: React.FC<Props> = ({products, filters, setFilters, onEdit}) => {
     const handleSort = (field: string, secondary = false) => {
         if(secondary) {
             setFilters({ ...filters, sortBy2: field, asc2: !filters.asc2});
@@ -81,7 +82,7 @@ const ProductTable: React.FC<Props> = ({products, filters, setFilters}) => {
                         <td>{p.expirationDate ?? "-"}</td>
                         <td>
                             <button
-                            onClick={() => alert("pending edit modal")} className="text-blue-600 hove:underline mr-2">
+                            onClick={() => onEdit(p)} className="text-blue-600 hove:underline mr-2">
                                 Edit
                             </button>
                             <button

@@ -4,12 +4,15 @@ import { Product, InventoryMetrics } from "../types/Product";
 import ProductTable from "../components/ProductTable";
 import ProductFilters from "../components/ProductFilters";
 import PaginationControls from "../components/PaginationControls";
+import ProductFormModal from "../components/ProductFormModal";
 
 const ProductListPage: React.FC = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [metrics, setMetrics] = useState<InventoryMetrics | null>(null);
     const [loading, setLoading] = useState(false);
     const [total, setTotal] = useState(0);
+    const [modalOpen, setModalOpen] = useState(false);
+    const [editingProduct, setEditingProducts] = useState<Product | undefined>();
 
     const [filters, setFilters] = useState({
         name: "",
@@ -35,6 +38,11 @@ const ProductListPage: React.FC = () => {
             console.log("Error loading products", err);
         } finally {setLoading(false);}
     };
+    
+    const handleEdit = (product: Product) => {
+        setEditingProducts(product);
+        setModalOpen(true);
+    }
 
     useEffect(() => {
         fetchData();
@@ -48,10 +56,19 @@ const ProductListPage: React.FC = () => {
 
             <div className="my-4">
                 <button className="bg-blue-600 text-white px-4 py-2 rounded"
-                onClick={() => alert("Creation modal")}>
+                onClick={() => {
+                    setEditingProducts(undefined);
+                    setModalOpen(true);
+                }}>
                     New Product
                 </button>
             </div>
+
+            <ProductFormModal
+            isOpen={modalOpen}
+            onClose={() => setModalOpen(false)}
+            onSucces={fetchData}
+            initialData={editingProduct} />
 
             {loading ? (
                 <p>Loading...</p>
@@ -61,6 +78,7 @@ const ProductListPage: React.FC = () => {
                         products={products}
                         filters={filters}
                         setFilters={setFilters}
+                        onEdit={handleEdit}
                     />
                     <PaginationControls filters={filters} setFilters={setFilters} total={total}/>
                 </>
