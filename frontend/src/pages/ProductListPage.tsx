@@ -90,6 +90,28 @@ const ProductListPage: React.FC = () => {
                     <p>Total in stock: {metrics.totalInStock}</p>
                     <p>Total Value: {metrics.totalValue.toFixed(2)}</p>
                     <p>Average price: ${metrics.averagePrice.toFixed(2)}</p>
+
+                    <h3 className="mt-4 font-semibold">Per Category</h3>
+                    <table className="w-full mt-2 border">
+                        <thead>
+                            <tr className="bg-gray-200">
+                                <th className="p-2 text-left">Category</th>
+                                <th className="p-2 text-left">Stock</th>
+                                <th className="p-2 text-left">Total Value</th>
+                                <th className="p-2 text-left">Average price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {Object.entries(metrics.byCategory).map(([category, data]) => (
+                                <tr key={category} className="border-t">
+                                    <td className="p-2">{category}</td>
+                                    <td className="p-2">{data.inStock}</td>
+                                    <td className="p-2">${data.totalValue.toFixed(2)}</td>
+                                    <td className="p-2">${data.averagePrice.toFixed(2)}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
             )}
         </div>

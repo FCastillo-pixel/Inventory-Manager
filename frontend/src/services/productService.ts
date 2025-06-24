@@ -25,7 +25,7 @@ export const markOutOfStock = async (id: string): Promise<void> => {
 };
 
 export const markInStock = async (id: string, quantity: number = 10): Promise<void> => {
-    await api.post(`/products/${id}/instock?defaultQuantity=${quantity}`);
+    await api.put(`/products/${id}/instock?defaultQuantity=${quantity}`);
 };
 
 export const getMetrics = async (): Promise<InventoryMetrics> => {
