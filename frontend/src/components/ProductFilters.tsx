@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useCallback} from "react";
-import { getCategories } from "../services/productService";
+import { useCategoryContext } from "../context/CategoryContext";
 
 interface Props {
     filters: any;
@@ -11,14 +11,7 @@ const ProductFilters: React.FC<Props> = ({filters, setFilters}) => {
     const [category, setCategory] = useState(filters.category || "");
     const [availability, setAvailability] = useState(filters.availability || "");
 
-    const [allCategories, setAllCategories] = useState<string[]> ([]);
-
-    useEffect(() => {
-        getCategories().then(setAllCategories).catch(err => {
-            console.error("Error getting categories", err);
-            setAllCategories([]);
-        });
-    }, []);
+    const {categories: allCategories} = useCategoryContext();
 
     const handleApply = useCallback( () => {
             setFilters((prevFilters: any) =>({

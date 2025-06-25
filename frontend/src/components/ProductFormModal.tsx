@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { Product, ProductDTO } from "../types/Product";
 import { createProduct, updateProduct } from "../services/productService";
+import { useCategoryContext } from "../context/CategoryContext";
 
 interface Props{
     isOpen: boolean;
@@ -19,6 +20,8 @@ const ProductFormModal: React.FC<Props> = ({isOpen, onClose, onSucces, initialDa
     });
 
     const [errors, setErrors] = useState<Record<string, string>>({});
+
+    const {refreshCategories} = useCategoryContext();
 
     useEffect(() => {
         if(initialData) {
@@ -67,6 +70,7 @@ const ProductFormModal: React.FC<Props> = ({isOpen, onClose, onSucces, initialDa
             } else {
                 await createProduct(form);
             }
+            await refreshCategories();
             onSucces();
             onClose();
         }catch (error) {

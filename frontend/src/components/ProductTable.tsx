@@ -73,14 +73,15 @@ const ProductTable: React.FC<Props> = ({products, filters, setFilters, onEdit}) 
                             <input 
                             type="checkbox"
                             checked={p.quantityInStock === 0}
-                            onChange={() => toggleStock(p)}/>
+                            onChange={() => toggleStock(p)}
+                            className="ml-4 mr-6"/>
                         </td>
                         <td className={getStockColor(p.quantityInStock)}>{p.name}</td>
-                        <td>{p.category}</td>
-                        <td>${p.unitPrice.toFixed(2)}</td>
+                        <td className="ml-4 mr-6 text-center">{p.category}</td>
+                        <td className="ml-4 mr-6 text-center">${p.unitPrice.toFixed(2)}</td>
                         <td className={getStockColor(p.quantityInStock)}>{p.quantityInStock}</td>
-                        <td>{p.expirationDate ?? "-"}</td>
-                        <td>
+                        <td className="ml-7 text-center">{p.expirationDate ?? "-"}</td>
+                        <td className="text-center">
                             <button
                             onClick={() => onEdit(p)} className="text-blue-600 hove:underline mr-2">
                                 Edit
