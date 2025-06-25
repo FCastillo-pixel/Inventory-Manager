@@ -24,7 +24,7 @@ public class ProductController {
     @GetMapping
     public ProductPage getProducts(
             @RequestParam Optional<String> name,
-            @RequestParam Optional<List<String>> category,
+            @RequestParam Optional<String> category,
             @RequestParam Optional<Boolean> availability,
             @RequestParam Optional<String> sortBy,
             @RequestParam Optional<String> sortBy2,
@@ -33,10 +33,10 @@ public class ProductController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ){
-        Set<String> categorySet = category.map(HashSet::new).orElse(null);
+        //Set<String> categorySet = category.map(HashSet::new).orElse(null);
         return service.getFilteredProductsPage(
                 name,
-                Optional.ofNullable(categorySet),
+                category,
                 availability,
                 sortBy,
                 sortBy2,

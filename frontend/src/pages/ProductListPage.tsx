@@ -88,7 +88,7 @@ const ProductListPage: React.FC = () => {
                 <div className="mt-6 p-4 border rounded bg-gray-50">
                     <h2 className="text-lg font-semibold mb-2">General Metrics</h2>
                     <p>Total in stock: {metrics.totalInStock}</p>
-                    <p>Total Value: {metrics.totalValue.toFixed(2)}</p>
+                    <p>Total Value: ${metrics.totalValue.toFixed(2)}</p>
                     <p>Average price: ${metrics.averagePrice.toFixed(2)}</p>
 
                     <h3 className="mt-4 font-semibold">Per Category</h3>

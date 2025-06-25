@@ -37,12 +37,12 @@ public class ProductRepository {
 
     public List<Product> findByNameOrCategoryOrAvailability(
             Optional<String> nameFilter,
-            Optional<Set<String>> categoryFilter,
+            Optional<String> categoryFilter,
             Optional<Boolean> availability
     ) {
         return products.values().stream()
                 .filter(p -> nameFilter.map(name -> p.getName().toLowerCase().contains(name.toLowerCase())).orElse(true))
-                .filter(p -> categoryFilter.map(categories -> categories.contains(p.getCategory())).orElse(true))
+                .filter(p -> categoryFilter.filter(cat -> !cat.isBlank()).map(cat -> cat.equalsIgnoreCase(p.getCategory())).orElse(true))
                 .filter(p -> availability.map(avail -> avail == p.isInStock()).orElse(true))
                 .collect(Collectors.toList());
     }
