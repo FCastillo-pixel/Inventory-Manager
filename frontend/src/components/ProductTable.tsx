@@ -10,12 +10,20 @@ interface Props{
 }
 
 const ProductTable: React.FC<Props> = ({products, filters, setFilters, onEdit}) => {
+    
     const handleSort = (field: string, secondary = false) => {
         if(secondary) {
             setFilters({ ...filters, sortBy2: field, asc2: !filters.asc2});
         }else {
             setFilters({...filters, sortBy: field, asc: !filters.asc});
         }
+    };
+
+    const renderSortIcon = (field: string) => {
+        if(filters.sortBy === field) {
+            return filters.asc ? "↑" : "↓";
+        }
+        return "⇅";
     };
 
     const toggleStock = async (product: Product) => {
@@ -56,11 +64,11 @@ const ProductTable: React.FC<Props> = ({products, filters, setFilters, onEdit}) 
             <thead className="bg-gray-200">
                 <tr>
                     <th></th>
-                    <th onClick={() => handleSort("name")} className="cursor-pointer">Name</th>
-                    <th onClick={() => handleSort("category")} className="cursor-pointer">Category</th>
-                    <th onClick={() => handleSort("unitPrice")} className="cursor-pointer">Price</th>
-                    <th onClick={() => handleSort("quantityInStock")} className="cursor-pointer">Stock</th>
-                    <th onClick={() => handleSort("expirationDate")} className="cursor-pointer">Expiration date</th>
+                    <th onClick={() => handleSort("name")} className="cursor-pointer">Name {renderSortIcon("name")}</th>
+                    <th onClick={() => handleSort("category")} className="cursor-pointer">Category {renderSortIcon("category")}</th>
+                    <th onClick={() => handleSort("unitPrice")} className="cursor-pointer">Price {renderSortIcon("unitPrice")}</th>
+                    <th onClick={() => handleSort("quantityInStock")} className="cursor-pointer">Stock {renderSortIcon("quantityInStock")}</th>
+                    <th onClick={() => handleSort("expirationDate")} className="cursor-pointer">Expiration date {renderSortIcon("expirationDate")}</th>
                     <th>Actions</th>
                 </tr>
             </thead>
