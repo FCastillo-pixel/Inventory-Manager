@@ -81,7 +81,7 @@ To run all front-end unit and integration tests:
     ```
 2.  Run the tests:
     ```bash
-    
+    npm run test
     ```
 
 ### Back-end Tests
