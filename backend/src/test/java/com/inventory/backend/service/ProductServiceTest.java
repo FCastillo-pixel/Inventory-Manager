@@ -127,4 +127,5 @@ public class ProductServiceTest {
         assertEquals(5, result.get(0).getQuantityInStock());
         assertEquals(2, result.get(1).getQuantityInStock());
     }
+
 }
