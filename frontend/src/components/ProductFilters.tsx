@@ -43,7 +43,8 @@ const ProductFilters: React.FC<Props> = ({filters, setFilters}) => {
                 <label className="block text-sm font-semibold">Filter by category</label>
                 <select value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full p-2 border rounded">
+                className="w-full p-2 border rounded"
+                data-testid="select">
                     <option value="">All categories</option>
                     {allCategories.map((cat) => (
                         <option key={cat} value={cat}>{cat}</option>

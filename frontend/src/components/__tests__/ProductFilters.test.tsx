@@ -17,7 +17,7 @@ test("renders filters and calls setFilters on input chnage", () => {
     const nameInput = screen.getByPlaceholderText("Product name...");
     fireEvent.change(nameInput, {target: {value: "Keyboard"}});
 
-    const categorySelect = screen.getByText("Filter by category");
+    const categorySelect = screen.getByTestId("select");
     fireEvent.change(categorySelect, {target: { value: "Books"}});
 
     expect(screen.getByText("Books")).toBeInTheDocument();
