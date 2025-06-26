@@ -11,7 +11,7 @@ This is the front end for the inventory managment app, is used for managing prod
 
 
 ## Tech Stack
-- **Framework**: Next.js 14 (App Router)
+- **Framework**: React 18
 - **Language**: TypeScript 5
 - **State Management**: React Context
 - **Styling**: Tailwind CSS
