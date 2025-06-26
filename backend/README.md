@@ -126,7 +126,7 @@ This controller provides endpoints for managing product information.
     ]
     ```
 
-### 6. Mark Product as Out of Stock (`PUT /products/{id}/outofstock`)
+### 6. Mark Product as Out of Stock (`POST /products/{id}/outofstock`)
 
 * **Description:** Marks a specific product as out of stock (sets `inStock` to 0).
 * **Path Variable:**
