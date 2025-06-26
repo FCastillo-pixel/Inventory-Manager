@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useCallback} from "react";
-import { getCategories } from "../services/productService";
+import { useCategoryContext } from "../context/CategoryContext";
 
 interface Props {
     filters: any;
@@ -8,35 +8,21 @@ interface Props {
 
 const ProductFilters: React.FC<Props> = ({filters, setFilters}) => {
     const [name, setName] = useState(filters.name || "");
-    const [category, setCategory] = useState<string[]>(filters.category || []);
+    const [category, setCategory] = useState(filters.category || "");
     const [availability, setAvailability] = useState(filters.availability || "");
 
-    const [allCategories, setAllCategories] = useState<string[]> ([]);
-
-    useEffect(() => {
-        getCategories().then(setAllCategories).catch(err => {
-            console.error("Error getting categories");
-            setAllCategories([]);
-        });
-    }, []);
+    const {categories: allCategories} = useCategoryContext();
 
     const handleApply = useCallback( () => {
             setFilters((prevFilters: any) =>({
             ...prevFilters,
             name,
-            category,
+            category: category === "" ? "" : category,
             availability: availability === "" ? "" : availability === "in",
             page: 0,
         }));
     }, [setFilters, name, category, availability]);
 
-    const toggleCategory = (value: string) => {
-        setCategory(prev =>
-            prev.includes(value)
-            ? prev.filter(c => c !== value)
-            : [...prev, value]
-        );
-    };
 
     useEffect(() => {
         handleApply();
@@ -55,17 +41,15 @@ const ProductFilters: React.FC<Props> = ({filters, setFilters}) => {
 
             <div>
                 <label className="block text-sm font-semibold">Filter by category</label>
-                <div className="glex flex-wrap gap-2 mt-1">
-                    {allCategories.map(cat => (
-                        <label key={cat} className="text-sm">
-                            <input type="checkbox"
-                            checked={category.includes(cat)}
-                            onChange={() => toggleCategory(cat)}
-                            className="mr-1" />
-                            {cat}
-                        </label>
+                <select value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                className="w-full p-2 border rounded"
+                data-testid="select">
+                    <option value="">All categories</option>
+                    {allCategories.map((cat) => (
+                        <option key={cat} value={cat}>{cat}</option>
                     ))}
-                </div>
+                </select>
             </div>
 
             <div>

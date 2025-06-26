@@ -94,5 +94,5 @@ To run all back-end unit and integration tests (full code coverage):
     ```
 2.  Run the tests:
     ```bash
-    
+    mvn test
     ```

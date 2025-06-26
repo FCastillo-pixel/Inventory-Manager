@@ -21,7 +21,7 @@ public class ProductService {
 
     public List<Product> getFilteredAndSortedProducts(
             Optional<String> nameFilter,
-            Optional<Set<String>> categoryFilter,
+            Optional<String> categoryFilter,
             Optional<Boolean> availability,
             Optional<String> sortBy,
             Optional<String> sortBy2,
@@ -45,7 +45,7 @@ public class ProductService {
     }
     public ProductPage getFilteredProductsPage(
             Optional<String> nameFilter,
-            Optional<Set<String>> categoryFilter,
+            Optional<String> categoryFilter,
             Optional<Boolean> availability,
             Optional<String> sortBy,
             Optional<String> sortBy2,
